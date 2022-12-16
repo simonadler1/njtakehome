@@ -1,22 +1,24 @@
 <template>
-  <div id="app">
-    <v-list-item-group v-model="selectedSpecies" color="primary">
-      <v-list-item v-for="(item, i) in getSpecies" :key="i">
-        <v-list-item-content>
-          <v-list-item-title v-text="item"></v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list-item-group>
-  </div>
+  <v-app>
+    <v-main id="app">
+      <v-container>
+        <v-row
+          ><v-col cols="3"><Picker /></v-col>
+          <v-col cols="8"><ViewDetails /></v-col> </v-row
+      ></v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Picker from "./components/Picker.vue";
+import ViewDetails from "./components/ViewDetails.vue";
 export default {
   name: "App",
-  components: {},
+  components: { Picker, ViewDetails },
   created() {
-    this.fetchSpecies;
+    this.fetchPokemonList();
   },
   data() {
     return {
@@ -24,10 +26,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getSpecies"]),
+    ...mapGetters(["getPokemon"]),
   },
   methods: {
-    ...mapActions(["fetchSpecies"]),
+    ...mapActions(["fetchPokemonList"]),
   },
 };
 </script>
@@ -37,8 +39,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

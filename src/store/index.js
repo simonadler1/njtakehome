@@ -5,26 +5,42 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    speciesList: [],
-    selectedSpecies: undefined,
+    pokemonList: [],
+    selectedPokemon: undefined,
   },
   getters: {
-    getSpecies(state) {
-      return state.speciesList;
+    getPokemon(state) {
+      return state.pokemonList;
     },
-    getSelectedSpecies(state) {
-      return state.selectedSpecies;
+    getSelectedPokemon(state) {
+      return state.selectedPokemon;
     },
   },
-  mutations: {},
+  mutations: {
+    SET_POKEMON_LIST(state, data) {
+      state.pokemonList = data;
+    },
+    SET_SELECTED_POKEMON(state, data) {
+      state.selectedPokemon = data;
+    },
+  },
   actions: {
-    async fetchSpecies({ commit }) {
+    async fetchPokemonList({ commit }) {
       try {
-        const fishSpeciesRes = await fetch(
-          "https://www.fishwatch.gov/api/species"
+        const pokemonListRes = await fetch(
+          "https://pokeapi.co/api/v2/pokemon/?limit=99"
         );
-        const fishSpeciesData = await fishSpeciesRes.json();
-        commit("SET_SPECIES_LIST", fishSpeciesData);
+        const pokemonData = await pokemonListRes.json();
+        commit("SET_POKEMON_LIST", pokemonData);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async selectPokemon({ commit }, pokemon) {
+      try {
+        const selectedPokemonRes = await fetch(`${pokemon.url}`);
+        const selectedPokemonData = await selectedPokemonRes.json();
+        commit("SET_SELECTED_POKEMON", selectedPokemonData);
       } catch (error) {
         console.log(error);
       }
