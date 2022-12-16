@@ -8,11 +8,17 @@
         :src="getSelectedPokemon.sprites.front_default"
       ></v-img>
       <v-card-title> Name:{{ getSelectedPokemon.name }}</v-card-title>
+      <v-card-title>
+        Type(s):
+        <div
+          v-for="pokemontype of getSelectedPokemon.types"
+          :key="pokemontype.slot"
+        >
+          <v-card-title>{{ pokemontype.type.name }}</v-card-title>
+        </div>
+      </v-card-title>
       <v-card-title> Height: {{ getSelectedPokemon.height }} </v-card-title>
       <v-card-title> Weight: {{ getSelectedPokemon.weight }} </v-card-title>
-      <v-card-text v-if="getSelectedPokemon.location"
-        >Location: {{ getSelectedPokemon.location }}</v-card-text
-      >
     </div>
   </v-card>
 </template>

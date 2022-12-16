@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 import Picker from "./components/Picker.vue";
 import ViewDetails from "./components/ViewDetails.vue";
 export default {
@@ -20,25 +20,8 @@ export default {
   created() {
     this.fetchPokemonList();
   },
-  data() {
-    return {
-      selectedSpecies: undefined,
-    };
-  },
-  computed: {
-    ...mapGetters(["getPokemon"]),
-  },
   methods: {
     ...mapActions(["fetchPokemonList"]),
   },
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-</style>
